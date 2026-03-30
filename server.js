@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const pool = require("./db");
 const fs = require("fs");
+console.log(process.env.DATABASE_URL);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
