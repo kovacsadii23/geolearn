@@ -1,0 +1,91 @@
+.quizBox{ width: min(820px, 92vw); }
+
+.metaRow{
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  margin: 10px 0 14px;
+}
+
+.chip{
+  background: rgba(255,255,255,0.22);
+  color:white;
+  border-radius: 999px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+}
+
+.question{
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  color:#0f172a;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.answers{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.answerBtn{
+  border:none;
+  border-radius: 16px;
+  padding: 14px 14px;
+  cursor:pointer;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+  text-align:left;
+  font-weight: 700;
+  color:#0f172a;
+}
+
+.answerBtn.correct{ background: rgba(7, 161, 43, 0.966); }
+.answerBtn.wrong{ background: rgb(203, 9, 9); }
+.answerBtn:disabled{ cursor: default; opacity: 0.95; }
+
+.flagWrap{
+  margin: 0 auto 12px;
+  width: min(520px, 90%);
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+}
+.flagWrap img{
+  width:100%;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.hidden{ display:none; }
+
+.bottomRow{
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  margin-top: 14px;
+}
+
+/* overlay */
+.resultOverlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  display:flex; align-items:center; justify-content:center;
+  z-index: 99999;
+}
+.resultOverlay.hidden{ display:none; }
+.resultCard{
+  width: min(560px, 92vw);
+  background:white; border-radius: 22px;
+  padding: 18px; text-align:center;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+  color:#0f172a;
+}
+.resultScore{ font-size: 34px; font-weight: 900; margin: 10px 0; }
+.resultBtns{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+
+@media (max-width: 720px){
+  .answers{ grid-template-columns: 1fr; }
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>GeoLearn – Kontinens tesztek</title>
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="quiz_types.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="center-page">
+    <div class="container quizMenu">
+      <h1 id="title">Tesztek</h1>
+
+      <div class="list">
+        <button class="bigRowBtn" id="capitalsBtn" type="button">
+          <div class="bigRowLeft">
+            <div class="bigCircle">🏙</div>
+            <div class="bigLabel">Fővárosok</div>
+          </div>
+          <div class="bigPercent" id="capitalsPct">0%</div>
+        </button>
+
+        <button class="bigRowBtn" id="flagsBtn" type="button">
+          <div class="bigRowLeft">
+            <div class="bigCircle">🏳️</div>
+            <div class="bigLabel">Zászlók</div>
+          </div>
+          <div class="bigPercent" id="flagsPct">0%</div>
+        </button>
+      </div>
+
+      <div class="bottom-back">
+        <button onclick="location.href='quiz.html'">← Vissza a kontinensekhez</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="quiz_types.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeoLearn – Zászló Puzzle</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="puzzle.css" />
+</head>
+<body>
+
+  <div class="page">
+    <header class="hero heroSmall">
+      <div class="heroTitle">
+        <span class="heroIcon">🧩</span>
+        <h1>Zászló Puzzle</h1>
+      </div>
+      <p class="subtitle">Rakd ki a zászlót! A sarkok lekerekítettek.</p>
+    </header>
+
+    <main class="puzzleWrap">
+      <div id="board">
+        <img id="board-bg" alt="">
+      </div>
+    </main>
+
+    <footer class="footer">
+      <a class="btnSecondary" href="games.html">← Vissza a játékokhoz</a>
+    </footer>
+  </div>
+
+  <!-- Win overlay -->
+  <div id="winOverlay" class="hidden">
+    <div class="winCard">
+      <img id="winFlag" alt="Zászló">
+      <h2 id="winName"></h2>
+      <div class="winBtns">
+        <button id="nextBtn" class="btnPrimary">➡ Következő zászló</button>
+        <a class="btnSecondary" href="games.html">← Játékok</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="puzzle.js"></script>
+</body>
+</html>

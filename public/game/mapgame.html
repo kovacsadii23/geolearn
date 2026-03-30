@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoLearn – Vaktérkép</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="mapgame.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="page">
+    <header class="hero heroSmall">
+      <div class="heroTitle">
+        <h1>Vaktérkép</h1>
+      </div>
+    </header>
+
+    <main class="mapgameWrap">
+      <div class="mapgameTopbar">
+        <div class="pill"><span>🎯</span> <b>Feladat:</b> <span id="targetCountry">Betöltés...</span></div>
+        <div class="pill"><span>⭐</span> <b>Pont:</b> <span id="score">0</span></div>
+        <div class="pill"><span>🔁</span> <b>Kör:</b> <span id="round">1</span>/<span id="totalRounds">10</span></div>
+      </div>
+
+      <div class="mapCard">
+        <div id="feedback" class="feedback"></div>
+
+        <div id="mapContainer" class="mapContainer">
+          <div class="mapPlaceholder" id="mapPlaceholder">
+            <div class="placeholderIcon">🌍</div>
+            <p>Térkép betöltése...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <button class="btnPrimary" id="restartBtn">🔄 Új játék</button>
+      <button class="btnPrimary" onclick="window.location.href='games.html'">← Vissza a játékokhoz</button>
+    </footer>
+  </div>
+
+  <div id="resultOverlay" class="resultOverlay hidden">
+    <div class="resultCard">
+      <h2>✅ Játék vége!</h2>
+      <p class="resultSub">Eredményed:</p>
+      <div class="resultScore"><span id="finalScore">0</span> / <span id="finalTotal">10</span></div>
+
+      <div class="resultBtns">
+        <button class="btnPrimary" id="playAgainBtn">🔄 Újra</button>
+        <button class="btnPrimary" onclick="window.location.href='games.html'"> Játékok menü</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="screenFlash" class="screenFlash"></div>
+  <div id="countryPopup" class="countryPopup hidden">
+  <img id="popupFlag" src="" alt="">
+  <div id="popupName" class="popupName"></div>
+  </div>
+  <script src="mapgame.js"></script>
+</body>
+</html>

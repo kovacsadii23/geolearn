@@ -1,0 +1,255 @@
+.mapgameWrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.mapgameTopbar{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.pill{
+  background: rgba(255,255,255,0.22);
+  color: white;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.mapCard{
+  width: min(1100px, 95vw);
+  background: rgba(255,255,255,0.92);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  color: #0f172a;
+}
+
+.feedback{
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 14px;
+  min-height: 28px;
+}
+
+.mapContainer{
+  width: 100%;
+  min-height: 620px;
+  border-radius: 18px;
+  background: rgba(15,23,42,0.04);
+  border: 2px dashed rgba(15,23,42,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  box-sizing: border-box;
+  position: relative;
+  cursor: grab;
+}
+.mapInner{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.mapInner svg{
+  display: block;
+  width: 1000px;  
+  height: auto;
+  max-width: none;
+}
+.mapPlaceholder{
+  text-align: center;
+  opacity: 0.7;
+}
+
+.placeholderIcon{
+  font-size: 72px;
+  margin-bottom: 10px;
+}
+
+.mapContainer svg{
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+#mapContainer:active{
+  cursor: grabbing;
+}
+
+.country-shape{
+  fill: #dbeafe !important;
+  stroke: #94a3b8 !important;
+  stroke-width: 1.2 !important;
+  cursor: pointer;
+  transition: fill 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+.country-shape:hover{
+  fill: #93c5fd !important;
+}
+
+.country-correct{
+  stroke: #22c55e !important;
+  stroke-width: 2 !important;
+}
+
+.country-wrong{
+  fill: #fca5a5 !important;
+}
+
+.country-disabled{
+  pointer-events: none;
+}
+
+.resultOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 99999;
+}
+
+.resultOverlay.hidden{
+  display:none;
+}
+
+.resultCard{
+  width: min(560px, 92vw);
+  background: white;
+  border-radius: 22px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+  color:#0f172a;
+}
+
+.resultSub{
+  opacity:.8;
+  margin: 6px 0 0;
+}
+
+.resultScore{
+  font-size: 34px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.resultBtns{
+  display:flex;
+  gap: 10px;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px){
+  .mapContainer{
+    min-height: 420px;
+  }
+}
+.country-shape{
+  fill: #dbeafe !important;
+  stroke: #94a3b8 !important;
+  stroke-width: 1.2 !important;
+  cursor: pointer;
+  transition: fill 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+.country-shape:hover{
+  fill: #93c5fd !important;
+}
+
+.country-correct{
+  stroke: #22c55e !important;
+  stroke-width: 2.2 !important;
+}
+
+.country-wrong{
+  fill: #fca5a5 !important;
+  stroke: #dc2626 !important;
+  stroke-width: 2 !important;
+}
+
+/* képernyő flash */
+.screenFlash{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0;
+}
+
+.screenFlash.flash-correct{
+  background: rgba(34, 197, 94, 0.22);
+  animation: flashAnim 1s ease;
+}
+
+.screenFlash.flash-wrong{
+  background: rgba(239, 68, 68, 0.22);
+  animation: flashAnim 3s ease;
+}
+.countryPopup{
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: 260px;
+  height: 160px;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 99999;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.countryPopup img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popupName{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+}
+
+.countryPopup.show{
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.countryPopup.hidden{
+  display: none;
+}
+
+@keyframes flashAnim{
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; }
+}

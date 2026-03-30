@@ -1,0 +1,185 @@
+/* ====== Topbar (pill-ek) ====== */
+.memoryTopbar{
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.pill{
+  background: rgba(255,255,255,0.22);
+  color: white;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* ====== Grid wrapper ====== */
+.memoryWrap{
+  margin-top: 10px;
+  display:flex;
+  justify-content:center;
+}
+
+/* 6x6 grid – reszponzív (nem túl nagy) */
+.memoryGrid{
+  width: min(860px, 92vw);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
+
+/* ====== Card ====== */
+.memCard{
+  aspect-ratio: 1 / 1;        /* négyzet */
+  border-radius: 16px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .18s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.memCard.isFlipped{
+  transform: rotateY(180deg);
+}
+
+.memFace{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  padding: 10px;
+  text-align:center;
+}
+
+/* hátlap */
+.memFront{
+  background: rgba(255,255,255,0.26);
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+  color: white;
+  font-weight: 700;
+}
+
+.memFront .q{
+  font-size: 64px;
+  opacity: .95;
+}
+
+/* előlap */
+.memBack{
+  transform: rotateY(180deg);
+  background: white;
+  color: #0f172a;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.14);
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+/* “ország” és “főváros” vizuális különbség */
+.memBack.country{
+  border-left: 8px solid rgba(37,99,235,0.65);
+}
+.memBack.capital{
+  border-left: 8px solid rgba(16,185,129,0.65);
+}
+
+.memTag{
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size: 12px;
+  opacity: .65;
+  font-weight: 800;
+}
+
+.memCard.matched{
+  cursor: default;
+  pointer-events: none;
+}
+
+/* vizuális megerősítés, de NEM fordítjuk vissza */
+.memCard.matched .memBack{
+  background: #f0fdf4; /* enyhén zöldes */
+  border-color: rgba(16,185,129,0.6);
+  box-shadow: 0 10px 24px rgba(16,185,129,0.25);
+}
+
+/* ❗ fontos: a front (❓) NE legyen látható */
+.memCard.matched .memFront{
+  display: none;
+}
+
+/* ====== Overlay ====== */
+.winOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 99999;
+}
+.winOverlay.hidden{ display:none; }
+
+.winCard{
+  width: min(620px, 92vw);
+  background: white;
+  color: #0f172a;
+  border-radius: 22px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+}
+
+.winSub{ opacity: .8; margin-top: 6px; }
+
+.winStats{
+  display:flex;
+  justify-content:center;
+  gap: 12px;
+  margin: 14px 0 8px;
+  flex-wrap: wrap;
+}
+.stat{
+  background: rgba(15,23,42,0.06);
+  border-radius: 14px;
+  padding: 10px 14px;
+  min-width: 160px;
+}
+.stat b{ display:block; opacity:.75; }
+.stat span{ font-weight: 850; font-size: 18px; }
+
+.winBtns{
+  margin-top: 10px;
+  display:flex;
+  gap: 10px;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
+/* kisebb képernyőn automatikus 4 oszlop */
+@media (max-width: 720px){
+  .memoryGrid{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

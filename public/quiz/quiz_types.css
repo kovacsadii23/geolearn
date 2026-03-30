@@ -1,0 +1,32 @@
+.quizMenu{ width: min(720px, 92vw); }
+.list{ margin-top: 18px; display:flex; flex-direction:column; gap:14px; }
+
+.bigRowBtn{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 14px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 999px;
+  padding: 14px 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  cursor: pointer;
+  border: none;
+}
+
+.bigRowLeft{ display:flex; align-items:center; gap:12px; }
+.bigCircle{
+  width:44px;height:44px;border-radius:999px;
+  background: rgba(16, 96, 255, 0.248); /* halvány sötétkék háttér */
+  font-size: 22px;
+  filter: saturate(0) brightness(0.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.bigLabel{ font-weight:700; font-size:22px; color:#0f172a; }
+.bigPercent{
+  min-width:64px;height:40px;border-radius:999px;
+  background: rgba(0,0,0,0.08);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;color:#0f172a;
+}

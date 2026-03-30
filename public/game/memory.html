@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoLearn – Memory</title>
+
+  <!-- közös dizájn -->
+  <link rel="stylesheet" href="../style.css" />
+  <!-- játék specifikus -->
+  <link rel="stylesheet" href="memory.css" />
+</head>
+<body>
+
+  <div class="page">
+    <header class="hero heroSmall">
+      <div class="heroTitle">
+        <span class="heroIcon">🧠</span>
+        <h1>Memory</h1>
+      </div>
+      <p class="subtitle">Párosítsd az országot a fővárosával!</p>
+
+      <div class="memoryTopbar">
+        <div class="pill"><span>🧩</span> <b>Méret:</b> 6×6</div>
+        <div class="pill"><span>🎯</span> <b>Párok:</b> 18</div>
+        <div class="pill"><span>🔁</span> <b>Lépések:</b> <span id="moves">0</span></div>
+        <div class="pill"><span>⏱</span> <b>Idő:</b> <span id="time">00:00</span></div>
+      </div>
+    </header>
+
+    <main class="memoryWrap">
+      <div id="grid" class="memoryGrid" aria-label="Memory rács"></div>
+    </main>
+
+    <footer class="footer">
+      <button class="btnPrimary" id="restartBtn">🔄 Új játék</button>
+      <a class="btnSecondary" href="games.html">← Vissza a játékokhoz</a>
+    </footer>
+  </div>
+
+  <!-- Win overlay (csak UI most) -->
+  <div id="winOverlay" class="winOverlay hidden">
+    <div class="winCard">
+      <h2>🎉 Ügyes vagy!</h2>
+      <p class="winSub">Sikerült megtalálni az összes párt.</p>
+      <div class="winStats">
+        <div class="stat"><b>Lépések</b><span id="winMoves">0</span></div>
+        <div class="stat"><b>Idő</b><span id="winTime">00:00</span></div>
+      </div>
+      <div class="winBtns">
+        <button class="btnPrimary" id="playAgainBtn">➡ Újra</button>
+        <a class="btnSecondary" href="games.html">← Játékok</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="memory.js"></script>
+</body>
+</html>

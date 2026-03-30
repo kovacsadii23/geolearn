@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>GeoLearn – Kvíz</title>
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="quiz_play.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="center-page">
+    <div class="container quizBox">
+      <h1 id="quizTitle">Kvíz</h1>
+      <p class="subtitle" id="quizSub"></p>
+
+      <div class="metaRow">
+        <span class="chip">Kérdés: <b id="qIndex">1</b>/<b id="qTotal">10</b></span>
+        <span class="chip">Pont: <b id="score">0</b></span>
+      </div>
+
+      <div id="flagWrap" class="flagWrap hidden">
+        <img id="flagImg" alt="Zászló">
+      </div>
+
+      <div class="question" id="questionText">Betöltés...</div>
+      <div class="answers" id="options"></div>
+
+      <div class="bottomRow">
+        <button id="nextBtn" class="btnPrimary" disabled>Következő ➜</button>
+        <button id="restartBtn" class="btnSecondary">🔄 Újrakezdés</button>
+        <button class="btnSecondary" id="backBtn">← Vissza</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultOverlay" class="resultOverlay hidden">
+    <div class="resultCard">
+      <h2>✅ Kész!</h2>
+      <p class="resultSub">Eredményed:</p>
+      <div class="resultScore"><span id="finalScore">0</span>/<span id="finalTotal">10</span></div>
+      <div class="resultBtns">
+        <button class="btnPrimary" id="playAgainBtn">➡ Új teszt</button>
+        <button class="btnSecondary" id="menuBtn">← Kontinens tesztek</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="quiz_play.js"></script>
+</body>
+</html>
