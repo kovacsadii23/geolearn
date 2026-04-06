@@ -92,7 +92,6 @@ app.get("/api/country-name/:iso", async (req, res) => {
     res.status(500).json({ nev: "Ismeretlen ország" });
   }
 });
-// Memory játékhoz: 18 random ország (ország + főváros párok)
 app.get("/api/memory-pairs", async (req, res) => {
   try {
     const pairCount = Number(req.query.pairs ?? 18); // alap: 18 (6x6)
@@ -112,7 +111,6 @@ app.get("/api/memory-pairs", async (req, res) => {
       [limit]
     );
 
-    // 2 kártya / pár: country + capital
     const cards = [];
     let id = 1;
 
@@ -134,7 +132,6 @@ app.get("/api/memory-pairs", async (req, res) => {
       });
     }
 
-    // keverés (Fisher–Yates)
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
@@ -187,7 +184,6 @@ app.get("/api/quiz", async (req, res) => {
       return out;
     };
 
-    // alap WHERE (kontinens szűrés)
     const whereContinent = continent ? "AND kontinens = $2" : "";
     const params = continent ? [count, continent] : [count];
 

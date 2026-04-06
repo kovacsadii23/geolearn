@@ -1,4 +1,4 @@
-/* ====== Topbar (pill-ek) ====== */
+
 .memoryTopbar{
   margin-top: 14px;
   display: flex;
@@ -22,7 +22,6 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
-/* ====== Grid wrapper ====== */
 .memoryWrap{
   margin-top: 10px;
   display:flex;
@@ -43,9 +42,8 @@
   box-shadow: 0 18px 50px rgba(0,0,0,0.18);
 }
 
-/* ====== Card ====== */
 .memCard{
-  aspect-ratio: 1 / 1;        /* négyzet */
+  aspect-ratio: 1 / 1;        
   border-radius: 16px;
   position: relative;
   transform-style: preserve-3d;
@@ -70,7 +68,6 @@
   text-align:center;
 }
 
-/* hátlap */
 .memFront{
   background: rgba(255,255,255,0.26);
   border: 1px solid rgba(255,255,255,0.22);
@@ -84,7 +81,6 @@
   opacity: .95;
 }
 
-/* előlap */
 .memBack{
   transform: rotateY(180deg);
   background: white;
@@ -95,7 +91,6 @@
   line-height: 1.15;
 }
 
-/* “ország” és “főváros” vizuális különbség */
 .memBack.country{
   border-left: 8px solid rgba(37,99,235,0.65);
 }
@@ -117,19 +112,16 @@
   pointer-events: none;
 }
 
-/* vizuális megerősítés, de NEM fordítjuk vissza */
 .memCard.matched .memBack{
   background: #f0fdf4; /* enyhén zöldes */
   border-color: rgba(16,185,129,0.6);
   box-shadow: 0 10px 24px rgba(16,185,129,0.25);
 }
 
-/* ❗ fontos: a front (❓) NE legyen látható */
 .memCard.matched .memFront{
   display: none;
 }
 
-/* ====== Overlay ====== */
 .winOverlay{
   position: fixed;
   inset: 0;
@@ -177,7 +169,6 @@
   flex-wrap: wrap;
 }
 
-/* kisebb képernyőn automatikus 4 oszlop */
 @media (max-width: 720px){
   .memoryGrid{
     grid-template-columns: repeat(4, 1fr);

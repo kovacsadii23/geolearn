@@ -117,12 +117,10 @@ function onCardClick(cardEl) {
 
     matchedPairs++;
     if (matchedPairs === 18) {
-      // nyert
       stopTimer();
       showWin();
     }
   } else {
-    // visszafordítás késleltetve
     setTimeout(() => {
       unflip(firstCard);
       unflip(secondCard);
@@ -140,7 +138,6 @@ function checkMatch(a, b) {
   const typeA = a.dataset.type;
   const typeB = b.dataset.type;
 
-  // csak akkor jó, ha egyik country, másik capital
   return (typeA === "country" && typeB === "capital") ||
          (typeA === "capital" && typeB === "country");
 }

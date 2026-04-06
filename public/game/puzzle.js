@@ -16,9 +16,6 @@ let topZ = 2000;
 
 init();
 
-// -------------------------
-// INIT + START
-// -------------------------
 async function init() {
   const data = await fetch("/api/random-flag").then(r => r.json());
   currentFlag = data.flag;
@@ -46,7 +43,6 @@ function startPuzzle(flagPath) {
       p.style.width = pw + "px";
       p.style.height = ph + "px";
 
-      // sarok-könnyítés
       if (r === 0 && c === 0) p.classList.add("corner-tl");
       if (r === 0 && c === COLS - 1) p.classList.add("corner-tr");
       if (r === ROWS - 1 && c === 0) p.classList.add("corner-bl");
@@ -59,11 +55,9 @@ function startPuzzle(flagPath) {
       p.dataset.cx = String(c * pw);
       p.dataset.cy = String(r * ph);
 
-      // kezdő pozíció: a tábla mellé jobbra
       p.style.left = (br.right + 30 + Math.random() * 220) + "px";
       p.style.top = (br.top + Math.random() * (bh - ph)) + "px";
 
-      // pointer events (egér + touch)
       p.addEventListener("pointerdown", onPiecePointerDown);
 
       document.body.appendChild(p);
@@ -71,23 +65,17 @@ function startPuzzle(flagPath) {
   }
 }
 
-// -------------------------
-// DRAG HANDLERS (EGYSZER!)
-// -------------------------
 function onPiecePointerDown(e) {
   const p = e.currentTarget;
   if (p.classList.contains("locked")) return;
 
   activePiece = p;
 
-  // bring to front
   activePiece.style.zIndex = String(++topZ);
 
-  // offset a darabon belül
   dragOffsetX = e.clientX - activePiece.offsetLeft;
   dragOffsetY = e.clientY - activePiece.offsetTop;
 
-  // hogy move eseményeket biztosan megkapjuk
   activePiece.setPointerCapture(e.pointerId);
 
   e.preventDefault();
@@ -107,9 +95,6 @@ document.addEventListener("pointerup", async (e) => {
   activePiece = null;
 });
 
-// -------------------------
-// SNAP + WIN
-// -------------------------
 function snap(p) {
   const r = board.getBoundingClientRect();
   const cx = r.left + Number(p.dataset.cx);
@@ -128,7 +113,6 @@ async function checkWin() {
   const lockedCount = document.querySelectorAll(".piece.locked").length;
   if (lockedCount !== ROWS * COLS) return;
 
-  // ország név DB-ből
   let countryName = "Ismeretlen ország";
   try {
     const res = await fetch(`/api/country-name/${currentIso}`);
@@ -139,9 +123,6 @@ async function checkWin() {
   showWin(countryName);
 }
 
-// -------------------------
-// WIN OVERLAY
-// -------------------------
 function showWin(countryName) {
     document.querySelectorAll(".piece").forEach(p => {
     p.style.pointerEvents = "none";
