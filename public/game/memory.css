@@ -168,6 +168,121 @@
   justify-content:center;
   flex-wrap: wrap;
 }
+/* ── Settings overlay ── */
+.settingsOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99998;
+}
+.settingsOverlay.hidden{ display: none; }
+ 
+.settingsCard{
+  width: min(520px, 92vw);
+  background: white;
+  color: #0f172a;
+  border-radius: 22px;
+  padding: 28px 24px 22px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.35);
+}
+ 
+.settingsCard h2{
+  margin: 0 0 20px;
+  font-size: 20px;
+  text-align: center;
+  user-select: none;
+}
+ 
+.settingsSection{
+  margin-bottom: 22px;
+}
+ 
+.settingsLabel{
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #64748b;
+  margin: 0 0 10px;
+  user-select: none;
+  pointer-events: none;
+}
+ 
+/* Grid méret gombok */
+.sizeOptions{
+  display: flex;
+  gap: 10px;
+}
+ 
+.sizeBtn{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+ 
+.sizeBtn:hover{
+  border-color: #4facfe;
+  background: #eff8ff;
+}
+ 
+.sizeBtn.active{
+  border-color: #4facfe;
+  background: #e0f2fe;
+}
+ 
+.sizeName{
+  font-weight: 700;
+  font-size: 15px;
+}
+ 
+.sizeDim{
+  font-size: 12px;
+  color: #64748b;
+}
+ 
+/* Kontinens checkboxok */
+.continentOptions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+}
+ 
+.contLabel{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+ 
+.contLabel input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  accent-color: #4facfe;
+  cursor: pointer;
+}
+ 
+/* Beállítás gombok */
+.settingsBtns{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
 
 @media (max-width: 720px){
   .memoryGrid{

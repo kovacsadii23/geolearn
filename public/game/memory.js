@@ -1,6 +1,8 @@
 const gridEl = document.getElementById("grid");
 const movesEl = document.getElementById("moves");
 const timeEl = document.getElementById("time");
+const gridSizeLabel = document.getElementById("gridSizeLabel");
+const pairsLabel = document.getElementById("pairsLabel");
 
 const restartBtn = document.getElementById("restartBtn");
 const playAgainBtn = document.getElementById("playAgainBtn");
@@ -8,6 +10,12 @@ const playAgainBtn = document.getElementById("playAgainBtn");
 const winOverlay = document.getElementById("winOverlay");
 const winMovesEl = document.getElementById("winMoves");
 const winTimeEl = document.getElementById("winTime");
+
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsOverlay = document.getElementById("settingsOverlay");
+const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+const applySettingsBtn = document.getElementById("applySettingsBtn");
+const sizeBtns = document.querySelectorAll(".sizeBtn");
 
 // Játékállapot
 let cards = [];
@@ -22,6 +30,16 @@ let timerId = null;
 let seconds = 0;
 let timerRunning = false;
 
+// Beállítások
+let currentGridSize = 6;
+let currentContinents = ["Európa", "Ázsia", "Amerika", "Afrika", "Óceánia"];
+
+// Grid méret → párok száma
+const GRID_PAIRS = { 4: 8, 6: 18, 8: 32 };
+
+// Grid méret → CSS oszlopszám
+const GRID_COLS = { 4: 4, 6: 6, 8: 8 };
+
 init();
 
 restartBtn?.addEventListener("click", () => startNewGame());
@@ -30,12 +48,46 @@ playAgainBtn?.addEventListener("click", () => {
   startNewGame();
 });
 
+// Beállítások popup
+settingsBtn?.addEventListener("click", () => {
+  settingsOverlay.classList.remove("hidden");
+});
+
+closeSettingsBtn?.addEventListener("click", () => {
+  settingsOverlay.classList.add("hidden");
+});
+
+settingsOverlay?.addEventListener("click", (e) => {
+  if (e.target === settingsOverlay) settingsOverlay.classList.add("hidden");
+});
+
+sizeBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    sizeBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
+applySettingsBtn?.addEventListener("click", () => {
+  const activeSize = document.querySelector(".sizeBtn.active");
+  if (activeSize) currentGridSize = parseInt(activeSize.dataset.size);
+
+  currentContinents = [...document.querySelectorAll(".continentOptions input:checked")]
+    .map(cb => cb.value);
+
+  if (currentContinents.length === 0) {
+    alert("Legalább egy kontinenst válassz ki!");
+    return;
+  }
+  settingsOverlay.classList.add("hidden");
+  startNewGame();
+});
+
 async function init() {
   await startNewGame();
 }
 
 async function startNewGame() {
-  // reset
   stopTimer();
   seconds = 0;
   timerRunning = false;
@@ -50,15 +102,28 @@ async function startNewGame() {
   lockBoard = false;
 
   hideWin();
+  updateLabels();
 
-  // adat lekérés
-  const data = await fetch("/api/memory-pairs?pairs=18").then(r => r.json());
+  const pairs = GRID_PAIRS[currentGridSize] || 18;
+  const continentsParam = encodeURIComponent(currentContinents.join(","));
+
+  const data = await fetch(
+    `/api/memory-pairs?pairs=${pairs}&continents=${continentsParam}`
+  ).then(r => r.json());
   cards = data.cards;
 
   renderGrid(cards);
 }
 
+function updateLabels() {
+  const pairs = GRID_PAIRS[currentGridSize] || 18;
+  if (gridSizeLabel) gridSizeLabel.textContent = `${currentGridSize}×${currentGridSize}`;
+  if (pairsLabel) pairsLabel.textContent = String(pairs);
+}
+
 function renderGrid(cards) {
+  const cols = GRID_COLS[currentGridSize] || 6;
+  gridEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   gridEl.innerHTML = "";
 
   for (const c of cards) {
@@ -90,7 +155,6 @@ function onCardClick(cardEl) {
   if (cardEl.classList.contains("matched")) return;
   if (cardEl === firstCard) return;
 
-  // első kattintáskor indul az idő
   if (!timerRunning) {
     timerRunning = true;
     startTimer();
@@ -110,13 +174,14 @@ function onCardClick(cardEl) {
   updateMoves();
 
   const isMatch = checkMatch(firstCard, secondCard);
+  const totalPairs = GRID_PAIRS[currentGridSize] || 18;
 
   if (isMatch) {
     markMatched(firstCard, secondCard);
     resetTurn();
 
     matchedPairs++;
-    if (matchedPairs === 18) {
+    if (matchedPairs === totalPairs) {
       stopTimer();
       showWin();
     }
@@ -142,18 +207,9 @@ function checkMatch(a, b) {
          (typeA === "capital" && typeB === "country");
 }
 
-function flip(cardEl) {
-  cardEl.classList.add("isFlipped");
-}
-
-function unflip(cardEl) {
-  cardEl.classList.remove("isFlipped");
-}
-
-function markMatched(a, b) {
-  a.classList.add("matched");
-  b.classList.add("matched");
-}
+function flip(cardEl) { cardEl.classList.add("isFlipped"); }
+function unflip(cardEl) { cardEl.classList.remove("isFlipped"); }
+function markMatched(a, b) { a.classList.add("matched"); b.classList.add("matched"); }
 
 function resetTurn() {
   firstCard = null;
@@ -166,10 +222,7 @@ function updateMoves() {
 }
 
 function startTimer() {
-  timerId = setInterval(() => {
-    seconds++;
-    updateTime();
-  }, 1000);
+  timerId = setInterval(() => { seconds++; updateTime(); }, 1000);
 }
 
 function stopTimer() {

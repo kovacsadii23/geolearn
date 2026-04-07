@@ -18,8 +18,8 @@
       <p class="subtitle">Párosítsd az országot a fővárosával!</p>
 
       <div class="memoryTopbar">
-        <div class="pill"><span>🧩</span> <b>Méret:</b> 6×6</div>
-        <div class="pill"><span>🎯</span> <b>Párok:</b> 18</div>
+        <div class="pill"><span>🧩</span> <b>Méret:</b> <span id="gridSizeLabel">6×6</span></div>
+        <div class="pill"><span>🎯</span> <b>Párok:</b> <span id="pairsLabel">18</span></div>
         <div class="pill"><span>🔁</span> <b>Lépések:</b> <span id="moves">0</span></div>
         <div class="pill"><span>⏱</span> <b>Idő:</b> <span id="time">00:00</span></div>
       </div>
@@ -31,10 +31,53 @@
 
     <footer class="footer">
       <button class="btnPrimary" id="restartBtn">🔄 Új játék</button>
+      <button class="btnSecondary" id="settingsBtn">⚙️ Beállítások</button>
       <button onclick="location.href='games.html'">← Vissza a játékokhoz</button>
     </footer>
   </div>
 
+  <!-- Settings Overlay -->
+  <div id="settingsOverlay" class="settingsOverlay hidden">
+    <div class="settingsCard">
+      <h2>⚙️ Beállítások</h2>
+
+      <div class="settingsSection">
+        <p class="settingsLabel">Grid mérete</p>
+        <div class="sizeOptions">
+          <button class="sizeBtn" data-size="4">
+            <span class="sizeName">Kicsi</span>
+            <span class="sizeDim">4×4 – 8 pár</span>
+          </button>
+          <button class="sizeBtn active" data-size="6">
+            <span class="sizeName">Közepes</span>
+            <span class="sizeDim">6×6 – 18 pár</span>
+          </button>
+          <button class="sizeBtn" data-size="8">
+            <span class="sizeName">Nagy</span>
+            <span class="sizeDim">8×8 – 32 pár</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="settingsSection">
+        <p class="settingsLabel">Kontinensek</p>
+        <div class="continentOptions">
+          <label class="contLabel"><input type="checkbox" value="Európa" checked> 🌍 Európa</label>
+          <label class="contLabel"><input type="checkbox" value="Ázsia" checked> 🌏 Ázsia</label>
+          <label class="contLabel"><input type="checkbox" value="Amerika" checked> 🌎 Amerika</label>
+          <label class="contLabel"><input type="checkbox" value="Afrika" checked> 🌍 Afrika</label>
+          <label class="contLabel"><input type="checkbox" value="Óceánia" checked> 🏝 Óceánia</label>
+        </div>
+      </div>
+
+      <div class="settingsBtns">
+        <button class="btnPrimary" id="applySettingsBtn">✅ Alkalmaz &amp; Új játék</button>
+        <button class="btnSecondary" id="closeSettingsBtn">Mégse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win Overlay -->
   <div id="winOverlay" class="winOverlay hidden">
     <div class="winCard">
       <h2>🎉 Ügyes vagy!</h2>

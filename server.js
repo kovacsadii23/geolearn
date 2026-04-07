@@ -11,7 +11,6 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Teszt adatbázis kapcsolat
 app.get("/api/countries", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM countries");
@@ -94,52 +93,62 @@ app.get("/api/country-name/:iso", async (req, res) => {
 });
 app.get("/api/memory-pairs", async (req, res) => {
   try {
-    const pairCount = Number(req.query.pairs ?? 18); // alap: 18 (6x6)
-    const limit = Math.min(Math.max(pairCount, 4), 25); // 4..25 közé szorítjuk
-
-    // csak olyan országok, ahol van név + főváros + iso_kod
-    const result = await pool.query(
-      `
-      SELECT iso_kod, nev, fovaros
-      FROM countries
-      WHERE nev IS NOT NULL AND nev <> ''
-        AND fovaros IS NOT NULL AND fovaros <> ''
-        AND iso_kod IS NOT NULL AND iso_kod <> ''
-      ORDER BY RANDOM()
-      LIMIT $1
-      `,
-      [limit]
-    );
-
+    const pairCount = Number(req.query.pairs ?? 18);
+    const limit = Math.min(Math.max(pairCount, 4), 32);
+ 
+    const continentsRaw = (req.query.continents ?? "").trim();
+    const continentList = continentsRaw
+      ? continentsRaw.split(",").map(c => c.trim()).filter(Boolean)
+      : [];
+ 
+    let queryText;
+    let queryParams;
+ 
+    if (continentList.length > 0) {
+      const placeholders = continentList.map((_, i) => `$${i + 2}`).join(", ");
+      queryText = `
+        SELECT iso_kod, nev, fovaros
+        FROM countries
+        WHERE nev IS NOT NULL AND nev <> ''
+          AND fovaros IS NOT NULL AND fovaros <> ''
+          AND iso_kod IS NOT NULL AND iso_kod <> ''
+          AND kontinens IN (${placeholders})
+        ORDER BY RANDOM()
+        LIMIT $1
+      `;
+      queryParams = [limit, ...continentList];
+    } else {
+      queryText = `
+        SELECT iso_kod, nev, fovaros
+        FROM countries
+        WHERE nev IS NOT NULL AND nev <> ''
+          AND fovaros IS NOT NULL AND fovaros <> ''
+          AND iso_kod IS NOT NULL AND iso_kod <> ''
+        ORDER BY RANDOM()
+        LIMIT $1
+      `;
+      queryParams = [limit];
+    }
+ 
+    const result = await pool.query(queryText, queryParams);
+ 
     const cards = [];
     let id = 1;
-
+ 
     for (const row of result.rows) {
       const pairId = row.iso_kod.toLowerCase();
-
-      cards.push({
-        id: id++,
-        type: "country",
-        value: row.nev,
-        pairId
-      });
-
-      cards.push({
-        id: id++,
-        type: "capital",
-        value: row.fovaros,
-        pairId
-      });
+      cards.push({ id: id++, type: "country",  value: row.nev,     pairId });
+      cards.push({ id: id++, type: "capital",  value: row.fovaros, pairId });
     }
-
+ 
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
     }
-
+ 
     res.json({
-      grid: "6x6",
-      pairs: limit,
+      grid: `${result.rows.length * 2} kártya`,
+      pairs: result.rows.length,
       totalCards: cards.length,
       cards
     });
