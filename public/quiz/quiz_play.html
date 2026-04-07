@@ -14,7 +14,6 @@
   <div class="center-page">
     <div class="container quizBox">
       <h1 id="quizTitle">Kvíz</h1>
-      <p class="subtitle" id="quizSub"></p>
 
       <div class="metaRow">
         <span class="chip">Kérdés: <b id="qIndex">1</b>/<b id="qTotal">10</b></span>
@@ -29,9 +28,8 @@
       <div class="answers" id="options"></div>
 
       <div class="bottomRow">
-        <button id="nextBtn" class="btnPrimary" disabled>Következő ➜</button>
-        <button id="restartBtn" class="btnSecondary">🔄 Újrakezdés</button>
-        <button class="btnSecondary" id="backBtn">← Vissza</button>
+        <button id="nextBtn" class="btnPrimary" disabled>Következő</button>
+        <button class="btnSecondary" id="backBtn">Kilépés </button>
       </div>
     </div>
   </div>
@@ -42,8 +40,18 @@
       <p class="resultSub">Eredményed:</p>
       <div class="resultScore"><span id="finalScore">0</span>/<span id="finalTotal">10</span></div>
       <div class="resultBtns">
-        <button class="btnPrimary" id="playAgainBtn">➡ Új teszt</button>
-        <button class="btnSecondary" id="menuBtn">← Kontinens tesztek</button>
+        <button class="btnPrimary" id="playAgainBtn">Új teszt</button>
+        <button class="btnSecondary" id="menuBtn">Másik kvíz</button>
+      </div>
+    </div>
+  </div>
+  <div id="exitOverlay" class="resultOverlay hidden">
+    <div class="resultCard">
+      <h2>⚠️ Kilépés</h2>
+      <p class="resultSub">Biztosan ki akarsz lépni a kvízből?<br>A jelenlegi eredményed elvész.</p>
+      <div class="resultBtns">
+        <button class="btnPrimary" id="exitCancelBtn">Maradok</button>
+        <button class="btnSecondary" id="exitConfirmBtn">Kilépés</button>
       </div>
     </div>
   </div>

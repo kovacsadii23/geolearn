@@ -3,7 +3,6 @@ const continent = params.get("continent") || "";
 const mode = params.get("mode") || "capitals";
 
 const quizTitle = document.getElementById("quizTitle");
-const quizSub = document.getElementById("quizSub");
 
 const qIndexEl = document.getElementById("qIndex");
 const qTotalEl = document.getElementById("qTotal");
@@ -12,7 +11,6 @@ const questionTextEl = document.getElementById("questionText");
 const optionsEl = document.getElementById("options");
 
 const nextBtn = document.getElementById("nextBtn");
-const restartBtn = document.getElementById("restartBtn");
 const backBtn = document.getElementById("backBtn");
 
 const flagWrap = document.getElementById("flagWrap");
@@ -24,6 +22,10 @@ const finalTotalEl = document.getElementById("finalTotal");
 const playAgainBtn = document.getElementById("playAgainBtn");
 const menuBtn = document.getElementById("menuBtn");
 
+const exitOverlay = document.getElementById("exitOverlay");
+const exitCancelBtn = document.getElementById("exitCancelBtn");
+const exitConfirmBtn = document.getElementById("exitConfirmBtn");
+
 let questions = [];
 let current = 0;
 let score = 0;
@@ -31,14 +33,19 @@ let answered = false;
 
 init();
 
-restartBtn.addEventListener("click", init);
-playAgainBtn.addEventListener("click", () => { hideResult(); init(); });
-
 backBtn.addEventListener("click", () => {
-  location.href = `quiz_types.html?continent=${encodeURIComponent(continent)}`;
+  exitOverlay.classList.remove("hidden");
 });
 
 menuBtn.addEventListener("click", () => {
+  location.href = `quiz_types.html?continent=${encodeURIComponent(continent)}`;
+});
+
+exitCancelBtn.addEventListener("click", () => {
+  exitOverlay.classList.add("hidden");
+});
+
+exitConfirmBtn.addEventListener("click", () => {
   location.href = `quiz_types.html?continent=${encodeURIComponent(continent)}`;
 });
 
@@ -59,10 +66,7 @@ async function init(){
 
   const modeHu = mode === "flags" ? "Zászlók" : "Fővárosok";
   quizTitle.textContent = `${continent} – ${modeHu}`;
-  quizSub.textContent = mode === "flags"
-    ? "Válaszd ki az országot a zászló alapján!"
-    : "Válaszd ki a helyes fővárost!";
-
+  
   questionTextEl.textContent = "Betöltés...";
 
   const data = await fetch(`/api/quiz?count=10&continent=${encodeURIComponent(continent)}&mode=${encodeURIComponent(mode)}`)
