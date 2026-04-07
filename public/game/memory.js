@@ -32,7 +32,7 @@ let timerRunning = false;
 
 // Beállítások
 let currentGridSize = 6;
-let currentContinents = ["Európa", "Ázsia", "Amerika", "Afrika", "Óceánia"];
+let currentContinents = ["Európa", "Ázsia", "Dél-Amerika", "Észak-Amerika", "Afrika", "Óceánia"];
 
 // Grid méret → párok száma
 const GRID_PAIRS = { 4: 8, 6: 18, 8: 32 };
